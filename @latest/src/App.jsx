@@ -12,6 +12,14 @@ function App() {
     });
   };
 
+  const inputDeleteHandler = (id) => {
+    setInputArray((prevArray) => {
+      return prevArray.filter((item, index) => {
+        return index !== id;
+      });
+    });
+  };
+
   console.log(inputArray);
   return (
     <div className="container">
@@ -20,9 +28,17 @@ function App() {
         <InputForm inputArrayHandler={inputArrayHandler} />
         <div>
           <ul>
-            {inputArray.map((item, index) => {
-              return <ToDoItemScreen key={index} text={item} />;
-            })}
+            {inputArray.length > 0 &&
+              inputArray.map((item, index) => {
+                return (
+                  <ToDoItemScreen
+                    key={index}
+                    text={item}
+                    index={index}
+                    inputDeleteHandler={inputDeleteHandler}
+                  />
+                );
+              })}
           </ul>
         </div>
       </div>
